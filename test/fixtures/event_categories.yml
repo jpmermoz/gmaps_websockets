@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  key: MyString
+  name: MyString
+  alert_duration: 1
+  color: MyString
+
+two:
+  key: MyString
+  name: MyString
+  alert_duration: 1
+  color: MyString

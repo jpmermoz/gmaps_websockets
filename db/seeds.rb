@@ -1,7 +1,5 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+event_categories = EventCategory.create([
+	{ key: 'low', name: 'Low Priority', alert_duration: 5, color: '#23960F' },
+	{ key: 'med', name: 'Medium Priority', alert_duration: 10, color: '#EE8E11' },
+	{ key: 'high', name: 'High Priority', alert_duration: 15, color: '#E71A1A' }
+])
