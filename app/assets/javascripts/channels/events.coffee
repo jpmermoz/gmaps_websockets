@@ -7,5 +7,6 @@ App.events = App.cable.subscriptions.create "EventsChannel",
 
   received: (data) ->
   	event = data['event']
+  	alertify.success(event['description'])
   	map.panTo(new google.maps.LatLng(event.lat, event.lon));
   	console.log JSON.stringify event
