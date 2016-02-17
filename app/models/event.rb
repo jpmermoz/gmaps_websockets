@@ -3,11 +3,12 @@ class Event < ApplicationRecord
 
   validates  :lat, :lon, :description, presence: true
 
-  before_save :set_default_event_category
+  before_validation :set_default_event_category
+  after_create_commit { EventBroadcastJob.perform_later(self) }
 
   private
 
   	def set_default_event_category
-  		self.event_category ||= EventCategory.find_by_key("low")
+  		self.event_category_id ||= EventCategory.find_by_key("low").try(:id)
   	end
 end
