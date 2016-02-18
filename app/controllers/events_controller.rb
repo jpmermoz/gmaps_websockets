@@ -11,6 +11,14 @@ class EventsController < ApplicationController
 		end
 	end
 
+	def update
+		if @event.update(event_params)
+      format.json { render :show, status: :ok, location: @event }
+    else
+      format.json { render json: @event.errors, status: :unprocessable_entity }
+    end
+	end
+
 	def show
 	end
 
