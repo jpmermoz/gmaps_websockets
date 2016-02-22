@@ -1,4 +1,4 @@
-class EventBroadcastJob < ApplicationJob
+class EventCreateBroadcastJob < ApplicationJob
   queue_as :default
 
   def perform(event)
@@ -8,6 +8,6 @@ class EventBroadcastJob < ApplicationJob
 		  handlers: [:erb],
 		  locals: { event: event }
 		)
-  	ActionCable.server.broadcast 'events_channel', { event: event, html_item: html_item }
+  	ActionCable.server.broadcast 'events_create_channel', { event: event, html_item: html_item }
   end
 end

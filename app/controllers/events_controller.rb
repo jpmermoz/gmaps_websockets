@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-	before_action :set_event, only: [:show]
+	before_action :set_event, only: [:show, :update]
 
 	def create
 		@event = Event.new(event_params)
@@ -13,9 +13,9 @@ class EventsController < ApplicationController
 
 	def update
 		if @event.update(event_params)
-      format.json { render :show, status: :ok, location: @event }
+      render :show, status: :ok, location: @event
     else
-      format.json { render json: @event.errors, status: :unprocessable_entity }
+      render json: @event.errors, status: :unprocessable_entity
     end
 	end
 

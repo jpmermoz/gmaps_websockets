@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file. Action Cable runs in an EventMachine loop that does not support auto reloading.
-class EventsChannel < ApplicationCable::Channel
+class EventsUpdateChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "events_channel"
+    stream_from "events_update_channel"
   end
 
   def unsubscribed

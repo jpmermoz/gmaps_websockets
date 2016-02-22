@@ -1,4 +1,4 @@
-App.events = App.cable.subscriptions.create "EventsChannel",
+App.events = App.cable.subscriptions.create "EventsCreateChannel",
   connected: ->
     # Called when the subscription is ready for use on the server
 
@@ -17,3 +17,14 @@ App.events = App.cable.subscriptions.create "EventsChannel",
     	$('#event-menu').attr 'data-badge', 1
     else
     	$('#event-menu').attr 'data-badge', parseInt($('#event-menu').attr('data-badge')) + 1
+
+App.events = App.cable.subscriptions.create "EventsUpdateChannel",
+  connected: ->
+    # Called when the subscription is ready for use on the server
+
+  disconnected: ->
+    # Called when the subscription has been terminated by the server
+
+  received: (data) ->
+    event = data['event']
+    console.log(event)

@@ -7,7 +7,8 @@ class Event < ApplicationRecord
 
   accepts_nested_attributes_for :event_positions, allow_destroy: true
 
-  after_create_commit { EventBroadcastJob.perform_later(self) }
+  after_create_commit { EventCreateBroadcastJob.perform_later(self) }
+  after_update_commit { EventUpdateBroadcastJob.perform_later(self) }
 
   def start_position
   	self.event_positions.order(:created_at).first
