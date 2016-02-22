@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160222195356) do
 
   create_table "event_positions", force: :cascade do |t|
     t.string   "lat"
-    t.string   "lon"
+    t.string   "lng"
     t.integer  "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,8 +32,6 @@ ActiveRecord::Schema.define(version: 20160222195356) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.string   "lat"
-    t.string   "lon"
     t.text     "description"
     t.integer  "event_category_id"
     t.datetime "created_at",        null: false

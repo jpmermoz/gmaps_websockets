@@ -8,6 +8,6 @@ class EventCreateBroadcastJob < ApplicationJob
 		  handlers: [:erb],
 		  locals: { event: event }
 		)
-  	ActionCable.server.broadcast 'events_create_channel', { event: event, html_item: html_item }
+  	ActionCable.server.broadcast 'events_create_channel', { event: event.as_json(include: [:start_position, :event_positions]), html_item: html_item }
   end
 end

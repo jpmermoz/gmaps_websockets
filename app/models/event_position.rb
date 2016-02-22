@@ -1,3 +1,3 @@
 class EventPosition < ApplicationRecord
-  validates  :lat, :lon, presence: true
+  validates  :lat, :lng, presence: true
 end

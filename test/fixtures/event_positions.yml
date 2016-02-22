@@ -2,10 +2,10 @@
 
 one:
   lat: MyString
-  lon: MyString
+  lng: MyString
   event: 
 
 two:
   lat: MyString
-  lon: MyString
+  lng: MyString
   event: 

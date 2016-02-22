@@ -13,9 +13,9 @@ $(function(){
 		var event_item_id = event_item.data("event-id")
 
 		var lat = event_item.data("event-lat")
-		var lon = event_item.data("event-lon")
+		var lng = event_item.data("event-lng")
 		
-		map.panTo(new google.maps.LatLng(lat, lon))
+		map.panTo(new google.maps.LatLng(lat, lng))
     map.setZoom(16)
 	});
 })
