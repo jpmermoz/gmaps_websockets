@@ -19,12 +19,15 @@ App.events = App.cable.subscriptions.create "EventsCreateChannel",
       title: event['description']
     })
 
+    if event['event_positions'].length <= 1
+      return
+
     event_positions = event['event_positions'].map((el, i) ->
       return el.lat + ", " + el.lng
     )
 
     waypoints = event_positions.slice(1, -1).map((el, i) ->
-      return { location: el, stopover: false }
+      return { location: el, stopover: true }
     )
 
     directionsDisplay = new google.maps.DirectionsRenderer({map: map})
@@ -56,16 +59,27 @@ App.events = App.cable.subscriptions.create "EventsUpdateChannel",
   received: (data) ->
     event = data['event']
 
+    if event['event_positions'].length <= 1
+      return
+
     event_positions = event['event_positions'].map((el, i) ->
-      { lat: parseFloat(el.lat), lng: parseFloat(el.lng) }
+      return el.lat + ", " + el.lng
     )
 
-    event_path = new google.maps.Polyline({
-      path: event_positions,
-      geodesic: true,
-      strokeColor: '#FF0000',
-      strokeOpacity: 1.0,
-      strokeWeight: 2
-    })
+    waypoints = event_positions.slice(1, -1).map((el, i) ->
+      return { location: el, stopover: true }
+    )
 
-    event_path.setMap(map)
+    directionsDisplay = new google.maps.DirectionsRenderer({map: map})
+    directionsService = new google.maps.DirectionsService()
+
+    request = {
+      origin: event_positions[0]
+      destination: event_positions[event_positions.length - 1]
+      waypoints: waypoints
+      provideRouteAlternatives: false
+      travelMode: google.maps.TravelMode.WALKING
+    }
+
+    directionsService.route request, (response, status) ->
+      directionsDisplay.setDirections(response)
