@@ -23,27 +23,19 @@ App.events = App.cable.subscriptions.create "EventsCreateChannel",
       return
 
     event_positions = event['event_positions'].map((el, i) ->
-      return el.lat + ", " + el.lng
+      return { lat: parseFloat(el.lat), lng: parseFloat(el.lng) }
     )
 
-    waypoints = event_positions.slice(1, -1).map((el, i) ->
-      return { location: el, stopover: true }
-    )
+    event_path = new google.maps.Polyline({
+      path: event_positions,
+      geodesic: true,
+      strokeColor: '#FF0000',
+      strokeOpacity: 1.0,
+      strokeWeight: 2
+    });
 
-    directionsDisplay = new google.maps.DirectionsRenderer({map: map})
-    directionsService = new google.maps.DirectionsService()
-
-    request = {
-      origin: event_positions[0]
-      destination: event_positions[event_positions.length - 1]
-      waypoints: waypoints
-      provideRouteAlternatives: false
-      travelMode: google.maps.TravelMode.WALKING
-    }
-
-    directionsService.route request, (response, status) ->
-      directionsDisplay.setDirections(response)
-
+    event_path.setMap(map);
+  
     if isNaN(badge_count)
     	$('#event-menu').attr 'data-badge', 1
     else
